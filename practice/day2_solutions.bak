@@ -1,4 +1,5 @@
 #lang racket
+#lang racket
 ;;; COMP 360 - Day 2 Practice Problems
 ;;; Functions, Pairs, Lists, and Recursion
 
@@ -16,7 +17,6 @@
 ; Your code here:
 (define (double x) (* x 2))
 
-
 ;;; Write a function called `pair-average` that takes a pair of two
 ;;; numbers and returns their average.
 ;;;
@@ -28,7 +28,8 @@
 ;;;   - Use (cdr p) to get the second element of pair p
 
 ; Your code here:
-
+(define (pair-average p)
+  (/ (+ (car p) (cdr p)) 2))
 
 
 ;;; Now write TWO test cases for your pair-average function.
@@ -80,7 +81,7 @@
 ;;; Examples:
 ;;;   (list-length '())        => 0
 ;;;   (list-length '(1 2 3))   => 3
-;;;   (list-length '('a 'b 'c 'd)) => 4
+;;;   (list-length '(a b c d)) => 4
 ;;;
 ;;; Hints:
 ;;;   - What is the length of an empty list?
@@ -176,8 +177,8 @@
 ;;;
 ;;; Examples:
 ;;;   (define grades (list (cons 'alice 95) (cons 'bob 67) (cons 'carol 72)))
-;;;   (count-passing grades 70) => 3  ; alice and carol passed
-;;;   (count-passing grades 90) => 2  ; only alice
+;;;   (count-passing grades 70) => 2  ; alice and carol passed
+;;;   (count-passing grades 90) => 1  ; only alice
 ;;;   (count-passing grades 50) => 3  ; everyone passed
 ;;;   (count-passing '() 70)    => 0
 ;;;

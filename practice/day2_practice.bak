@@ -80,7 +80,7 @@
 ;;; Examples:
 ;;;   (list-length '())        => 0
 ;;;   (list-length '(1 2 3))   => 3
-;;;   (list-length '('a 'b 'c 'd)) => 4
+;;;   (list-length '(a b c d)) => 4
 ;;;
 ;;; Hints:
 ;;;   - What is the length of an empty list?
@@ -176,8 +176,8 @@
 ;;;
 ;;; Examples:
 ;;;   (define grades (list (cons 'alice 95) (cons 'bob 67) (cons 'carol 72)))
-;;;   (count-passing grades 70) => 3  ; alice and carol passed
-;;;   (count-passing grades 90) => 2  ; only alice
+;;;   (count-passing grades 70) => 2  ; alice and carol passed
+;;;   (count-passing grades 90) => 1  ; only alice
 ;;;   (count-passing grades 50) => 3  ; everyone passed
 ;;;   (count-passing '() 70)    => 0
 ;;;

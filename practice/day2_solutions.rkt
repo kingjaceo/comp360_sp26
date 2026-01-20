@@ -16,7 +16,6 @@
 ; Your code here:
 (define (double x) (* x 2))
 
-
 ;;; Write a function called `pair-average` that takes a pair of two
 ;;; numbers and returns their average.
 ;;;
@@ -28,7 +27,8 @@
 ;;;   - Use (cdr p) to get the second element of pair p
 
 ; Your code here:
-
+(define (pair-average p)
+  (/ (+ (car p) (cdr p)) 2))
 
 
 ;;; Now write TWO test cases for your pair-average function.
@@ -39,7 +39,9 @@
 ;;;   (pair-average (cons 0 100))  ; should return 50
 
 ; Your test cases here:
-
+"test pair-average:"
+(pair-average (cons 40 50)) ; should be 45
+(pair-average (cons 10 20)) ; should be 15
 
 
 ;;; ============================================================
@@ -53,7 +55,8 @@
 ;;;   (make-point 0 0) => '(0 . 0)
 
 ; Your code here:
-
+(define (make-point x y)
+  (cons x y))
 
 
 ;;; Write a function called `distance-from-origin` that takes a point
@@ -67,8 +70,16 @@
 ;;;   (distance-from-origin (cons 1 1)) => 1.4142135623730951
 
 ; Your code here:
-
-
+(define (distance-from-origin p)
+  (sqrt (+ (* (car p) (car p))
+           (* (cdr p) (cdr p))
+           )
+        )
+  )
+"test distance-from-origin"
+(distance-from-origin (cons 1 1))
+(distance-from-origin (cons 3 4))
+(distance-from-origin (cons 5 12))
 
 ;;; ============================================================
 ;;; PROBLEM 3: Basic List Operations
@@ -87,8 +98,17 @@
 ;;;   - If you know the length of (cdr lst), what is the length of lst?
 
 ; Your code here:
+(define (list-length lst)
+  (if (null? lst)
+      0
+      (+ 1 (list-length (cdr lst)))
+      )
+  )
 
-
+"test list-length"
+(list-length '())
+(list-length '(a b c d))
+(list-length '(10 20 30 40 50 60))
 
 ;;; Write a function called `contains?` that takes a value and a list,
 ;;; and returns #t if the value is in the list, #f otherwise.
@@ -104,8 +124,18 @@
 ;;;     recursively check if it's in the rest (cdr)
 
 ; Your code here:
+(define (contains? a lst)
+  (if (null? lst)
+      #f
+      (if (eq? (car lst) a)
+          #t
+          (contains? a (cdr lst)))))
 
-
+"test contains?"
+(contains? 3 '(1 2 3 4))
+(contains? 5 '(1 2 3 4))
+(contains? 'a '())
+(contains? 'a '('f 'g 'h 'i 'j 'k 'l 'm 'a))
 
 ;;; ============================================================
 ;;; PROBLEM 4: Recursive List Building
@@ -124,8 +154,14 @@
 ;;;   - Recursive case: cons the value onto a list of (n-1) copies
 
 ; Your code here:
+(define (repeat a n)
+  (if (= n 0)
+      '()
+      (cons a (repeat a (- n 1)))))
 
-
+"test repeat"
+(repeat 4 12)
+(repeat 'a 6)
 
 ;;; Write a function called `range` that takes two numbers `start` and `end`
 ;;; and returns a list of integers from start up to (but not including) end.
@@ -141,7 +177,16 @@
 ;;;   - Recursive case: cons start onto the range from (start+1) to end
 
 ; Your code here:
+(define (range start end)
+  (if (>= start end)
+      '()
+      (cons start (range (+ start 1) end))))
 
+"test range"
+(range 1 5)
+(range 2 10)
+(range 3 3)
+(range 4 3)
 
 
 ;;; ============================================================
@@ -167,8 +212,18 @@
 ;;;   - Use `equal?` to compare symbols: (equal? 'alice 'alice) => #t
 
 ; Your code here:
+(define grades (list (cons 'alice 95) (cons 'bob 87) (cons 'carol 92)))
+(define (lookup-grade name grades)
+  (if (null? grades)
+      #f
+      (if (eq? (car (car grades)) name) ; the name we want is in the first grade entry
+          (cdr (car grades)) ; evaluate to the grade for the first grade entry
+          (lookup-grade name (cdr grades)))))
 
-
+"test lookup-grade"
+(lookup-grade 'alice grades)          
+(lookup-grade 'bob grades)
+(lookup-grade 'dave grades)
 
 ;;; Write a function called `count-passing` that takes a list of grade
 ;;; entries and a passing threshold, and returns the number of students
@@ -187,5 +242,16 @@
 ;;;   - If passing, add 1 to the recursive count; otherwise just recurse
 
 ; Your code here:
+(define (count-passing grades g)
+  (if (null? grades)
+      0
+      (if (>= (cdr (car grades)) g)
+          (+ 1 (count-passing (cdr grades) g))
+          (count-passing (cdr grades) g))))
 
+"test count-passing"
+(count-passing grades 70)
+(count-passing grades 90)
+(count-passing grades 50)
+(count-passing '() 50)
 
