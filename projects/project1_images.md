@@ -203,6 +203,7 @@ Example: `(place-image-at (make-car "green") '(10 . 100) (rectangle 200 200 "sol
 
 
 *Hint:* `(+ (* (random) range) shift)` is one way you can produce a random number which ranges between `shift` and `shift + range`, for examply if you want to guarantee a tree height of `60` pixels.
+
 ---
 
 ## Part 5: Your Scene
@@ -222,4 +223,6 @@ Some possible directions (or invent your own):
 - A landscape with mountains, trees, and clouds
 - An abstract geometric composition
 
-There's no right answer. Focus on writing clean, well-organized code and creating an image that reflects your effort and creativity.
+I've provided my solution to Part 5 as inspiration. I did use AI assistance for a mathematical property, and I clearly disclosed which functions were inspired by AI. If you want to see my prompts/conversations, I can share those with you.
+
+There's no right answer for this part. Focus on writing clean, well-organized code and creating an image that reflects your effort and creativity.
