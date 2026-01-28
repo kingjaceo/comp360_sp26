@@ -244,8 +244,13 @@
 
 ; What does (mystery 5) return?
 ; Your prediction:
+; I predict helper will use mystery's binding of n
+; so we should get 1 + 5 = 6
+
 
 ; Explanation (which binding of n does helper use?):
+"mystery test"
+(mystery 5)
 
 
 ;;; ============================================================
@@ -274,7 +279,17 @@
   (cond
     ((null? transactions) balance)
     (else
-     (let ((type 'replace-me)      ; extract type from first transaction
-           (amount 'replace-me))   ; extract amount from first transaction
-       ; Your code: check type and recursively process remaining
-       'replace-me))))
+     (let ((type (caar transactions))    ; extract type from first transaction
+           (amount (cdar transactions)))   ; extract amount from first transaction
+           ; Your code: check type and recursively process remaining
+           (cond ((eq? type 'deposit) (process-transactions (+ balance amount) (cdr transactions)))
+                 ((eq? type 'withdrawal) (process-transactions (- balance amount) (cdr transactions)))
+                 (else 'unrecognized-type))))))
+
+"process-transactions test"
+(process-transactions 100 '())
+(process-transactions 100 (list (cons 'deposit 50)))
+(process-transactions 100 (list (cons 'withdrawal 30)))
+(process-transactions 100 (list (cons 'deposit 50)
+                                (cons 'withdrawal 30)
+                                (cons 'deposit 20)))
