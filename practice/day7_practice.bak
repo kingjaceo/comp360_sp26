@@ -34,7 +34,7 @@
 ; ((lambda (x y) (+ x y)) 3 4)
 ; Prediction:
 
-; ((lambda (f x) (f (f x))) add1 5) ; add1 is built-in, feel free to test it out!
+; ((lambda (f x) (f (f x))) add1 5)
 ; Prediction:
 
 ; (let ((square (lambda (x) (* x x))))
@@ -114,7 +114,7 @@
 
 
 ;;; Now use transform-list to solve these problems.
-;;; Use lambda expressions - do NOT use built-in or user-defined functions.
+;;; Use lambda expressions - do NOT define named functions.
 
 ;;; a. Given a list of numbers, return a list of their absolute values.
 ;;;    Example: '(-1 2 -3 4) => '(1 2 3 4)
@@ -163,7 +163,37 @@
 
 
 ;;; ============================================================
-;;; PROBLEM 6: Internal Defines with Higher-Order Functions
+;;; PROBLEM 6: Combining let with Lambda
+;;; ============================================================
+
+;;; Sometimes you want to use let inside a lambda to avoid
+;;; repeated computation or to name intermediate values.
+
+;;; Write a function `make-bounded-adder` that takes two numbers
+;;; (min-val and max-val) and returns a NEW FUNCTION. The returned
+;;; function takes a number n and adds it to its argument, but
+;;; ensures the result is between min-val and max-val.
+;;;
+;;; Examples:
+;;;   (define add-bounded (make-bounded-adder 0 100))
+;;;   (add-bounded 50 30)   => 80    ; 50 + 30 = 80, within bounds
+;;;   (add-bounded 50 60)   => 100   ; 50 + 60 = 110, clamped to 100
+;;;   (add-bounded 50 -70)  => 0     ; 50 + -70 = -20, clamped to 0
+;;;
+;;; Hint: Use a let inside your lambda to compute the raw sum,
+;;; then use min/max to clamp it.
+
+; Your code here:
+(define (make-bounded-adder min-val max-val)
+  (lambda (base n)
+    (let ((raw-sum 'replace-me))  ; compute base + n
+      ; return raw-sum clamped between min-val and max-val
+      ; Hint: (min (max raw-sum min-val) max-val)
+      'replace-me)))
+
+
+;;; ============================================================
+;;; PROBLEM 7: Internal Defines with Higher-Order Functions
 ;;; ============================================================
 
 ;;; Write a function `count-matching` that takes a predicate and a
@@ -184,8 +214,22 @@
   (helper lst 0))
 
 
+;;; Write a function `sum-transformed` that takes a transformation
+;;; function and a list of numbers, and returns the sum of the
+;;; transformed values.
+;;;
+;;; Use an internal define for any helpers you need.
+;;;
+;;; Examples:
+;;;   (sum-transformed (lambda (x) (* x x)) '(1 2 3))  => 14  ; 1+4+9
+;;;   (sum-transformed abs '(-1 -2 3))                 => 6   ; 1+2+3
+;;;   (sum-transformed add1 '(1 2 3))                  => 9   ; 2+3+4
+
+; Your code here:
+
+
 ;;; ============================================================
-;;; PROBLEM 7: Putting It All Together
+;;; PROBLEM 8: Putting It All Together
 ;;; ============================================================
 
 ;;; A "student record" is a list with three elements:
@@ -218,12 +262,9 @@
     ; returns #t if record is a CS major with gpa >= 3.5
     'replace-me)
   ; Now use your helpers to filter and extract names
-  ; Hint: You might want to filter first (maybe use keep-if?),
-  ;       then transform (maybe use transform-list?)
+  ; Hint: You might want to filter first, then transform
   'replace-me)
 
-; you need to modify students to be a comprehensive test:
-; it currently doesn't cover all cases!
 
 ;;; Part B: Write `average-gpa-by-major` that takes a major (symbol)
 ;;; and a list of student records, and returns the average GPA of
