@@ -5,8 +5,8 @@
 
 (define basic-lexer
   (lexer-srcloc
-   ;   ["\n" (token 'NEWLINE lexeme)] ; probably not necessary
    [whitespace (token lexeme #:skip? #t)] ; skip whitespace
+   [(from/stop-before ";" "\n") (token lexeme #:skip? #t)] ; skip comments
 
    ; punctuation tokens
    ["{" (token 'LBRACE lexeme)]
@@ -35,10 +35,9 @@
    [(:seq (:? "-") (:or (:seq (:? digits) "." digits)
                         (:seq digits ".")))
     (token 'DECIMAL (string->number lexeme))] ; decimal
-   [(:seq (:? "-") digits) (token 'INTEGER (string->number lexeme))] ; integer
+   [(:seq (:? "-") digits) (token 'INTEGER (string->number lexeme))])) ; integer
    
 
-   ; comment
-   [(from/stop-before ";" "\n") (token 'COMMENT lexeme)]))
+   
 
 (provide basic-lexer)
