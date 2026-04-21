@@ -21,13 +21,13 @@
    ["particles" (token 'PARTICLES lexeme)]
    ["center" (token 'CENTER lexeme)]
    ["velocity" (token 'VELOCITY lexeme)]
+   ["total-mass" (token 'MASS lexeme)]
    
    ; simulation tokens
    ["simulation" (token 'SIMULATION lexeme)]
    ["size" (token 'SIZE lexeme)]
    ["time" (token 'TIME lexeme)]
    ["simulate" (token 'SIMULATE lexeme)]
-
 
    ; data structures
    [(:seq alphabetic (:* (:or alphabetic numeric "$")))
